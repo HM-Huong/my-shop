@@ -1,0 +1,222 @@
+[
+	{
+		"title": "iPhone 9",
+		"description": "An apple mobile which is nothing like apple",
+		"price": 549,
+		"discountPercentage": 12.96,
+		"stock": 94,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg",
+		"status": "active",
+		"position": 1,
+		"deleted": false
+	},
+	{
+		"title": "iPhone X",
+		"description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+		"price": 899,
+		"discountPercentage": 17.94,
+		"stock": 34,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
+		"status": "active",
+		"position": 2,
+		"deleted": false
+	},
+	{
+		"title": "Samsung Universe 9",
+		"description": "Samsung's new variant which goes beyond Galaxy to the Universe",
+		"price": 1249,
+		"discountPercentage": 15.46,
+		"stock": 36,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/3/thumbnail.jpg",
+		"status": "inactive",
+		"position": 3,
+		"deleted": false
+	},
+	{
+		"title": "OPPOF19",
+		"description": "OPPO F19 is officially announced on April 2021.",
+		"price": 280,
+		"discountPercentage": 17.91,
+		"stock": 123,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/4/thumbnail.jpg",
+		"status": "active",
+		"position": 4,
+		"deleted": false
+	},
+	{
+		"title": "Huawei P30",
+		"description": "Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.",
+		"price": 499,
+		"discountPercentage": 10.58,
+		"stock": 32,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/5/thumbnail.jpg",
+		"status": "inactive",
+		"position": 5,
+		"deleted": false
+	},
+	{
+		"title": "MacBook Pro",
+		"description": "MacBook Pro 2021 with mini-LED display may launch between September, November",
+		"price": 1749,
+		"discountPercentage": 11.02,
+		"stock": 83,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/6/thumbnail.jpg",
+		"status": "active",
+		"position": 6,
+		"deleted": true
+	},
+	{
+		"title": "Samsung Galaxy Book",
+		"description": "Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched",
+		"price": 1499,
+		"discountPercentage": 4.15,
+		"stock": 94,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/7/thumbnail.jpg",
+		"status": "active",
+		"position": 7,
+		"deleted": false
+	},
+	{
+		"title": "Microsoft Surface Laptop 4",
+		"description": "Style and speed. Stand out on HD video calls backed by Studio Mics. Capture ideas on the vibrant touchscreen.",
+		"price": 1499,
+		"discountPercentage": 10.23,
+		"stock": 94,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/8/thumbnail.jpg",
+		"status": "active",
+		"position": 8,
+		"deleted": false
+	},
+	{
+		"title": "Infinix INBOOK",
+		"description": "Infinix Inbook X1 Ci3 10th 8GB 256GB 14 Win10 Grey – 1 Year Warranty",
+		"price": 1099,
+		"discountPercentage": 11.83,
+		"stock": 94,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/9/thumbnail.jpg",
+		"status": "active",
+		"position": 9,
+		"deleted": false
+	},
+	{
+		"title": "HP Pavilion 15-DK1056WM",
+		"description": "HP Pavilion 15-DK1056WM Gaming Laptop 10th Gen Core i5, 8GB, 256GB SSD, GTX 1650 4GB, Windows 10",
+		"price": 1099,
+		"discountPercentage": 6.18,
+		"stock": 94,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/10/thumbnail.jpeg",
+		"status": "active",
+		"position": 10,
+		"deleted": false
+	},
+	{
+		"title": "perfume Oil",
+		"description": "Mega Discount, Impression of Acqua Di Gio by GiorgioArmani concentrated attar perfume Oil",
+		"price": 13,
+		"discountPercentage": 8.4,
+		"stock": 94,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/11/thumbnail.jpg",
+		"status": "active",
+		"position": 11,
+		"deleted": false
+	},
+	{
+		"title": "Brown Perfume",
+		"description": "Royal_Mirage Sport Brown Perfume for Men & Women - 120ml",
+		"price": 40,
+		"discountPercentage": 15.66,
+		"stock": 94,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/12/thumbnail.jpg",
+		"status": "active",
+		"position": 12,
+		"deleted": false
+	},
+	{
+		"title": "Fog Scent Xpressio Perfume",
+		"description": "Product details of Best Fog Scent Xpressio Perfume 100ml For Men cool long lasting perfumes for Men",
+		"price": 13,
+		"discountPercentage": 8.14,
+		"stock": 94,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/13/thumbnail.webp",
+		"status": "active",
+		"position": 13,
+		"deleted": false
+	},
+	{
+		"title": "Non-Alcoholic Concentrated Perfume Oil",
+		"description": "Original Al Munakh® by Mahal Al Musk | Our Impression of Climate | 6ml Non-Alcoholic Concentrated Perfume Oil",
+		"price": 120,
+		"discountPercentage": 15.6,
+		"stock": 94,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/14/thumbnail.jpg",
+		"status": "active",
+		"position": 14,
+		"deleted": false
+	},
+	{
+		"title": "Eau De Perfume Spray",
+		"description": "Genuine  Al-Rehab spray perfume from UAE/Saudi Arabia/Yemen High Quality",
+		"price": 30,
+		"discountPercentage": 10.99,
+		"stock": 94,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/15/thumbnail.jpg",
+		"status": "active",
+		"position": 15,
+		"deleted": false
+	},
+	{
+		"title": "Hyaluronic Acid Serum",
+		"description": "L'OrÃ©al Paris introduces Hyaluron Expert Replumping Serum formulated with 1.5% Hyaluronic Acid",
+		"price": 19,
+		"discountPercentage": 13.31,
+		"stock": 94,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/16/thumbnail.jpg",
+		"status": "active",
+		"position": 16,
+		"deleted": false
+	},
+	{
+		"title": "Tree Oil 30ml",
+		"description": "Tea tree oil contains a number of compounds, including terpinen-4-ol, that have been shown to kill certain bacteria,",
+		"price": 12,
+		"discountPercentage": 4.09,
+		"stock": 94,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/17/thumbnail.jpg",
+		"status": "active",
+		"position": 17,
+		"deleted": false
+	},
+	{
+		"title": "Oil Free Moisturizer 100ml",
+		"description": "Dermive Oil Free Moisturizer with SPF 20 is specifically formulated with ceramides, hyaluronic acid & sunscreen.",
+		"price": 40,
+		"discountPercentage": 13.1,
+		"stock": 94,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/18/thumbnail.jpg",
+		"status": "active",
+		"position": 18,
+		"deleted": false
+	},
+	{
+		"title": "Skin Beauty Serum.",
+		"description": "Product name: rorec collagen hyaluronic acid white face serum riceNet weight: 15 m",
+		"price": 46,
+		"discountPercentage": 10.68,
+		"stock": 94,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/19/thumbnail.jpg",
+		"status": "active",
+		"position": 19,
+		"deleted": false
+	},
+	{
+		"title": "Freckle Treatment Cream- 15gm",
+		"description": "Fair & Clear is Pakistan's only pure Freckle cream which helpsfade Freckles, Darkspots and pigments. Mercury level is 0%, so there are no side effects.",
+		"price": 70,
+		"discountPercentage": 16.99,
+		"stock": 94,
+		"thumbnail": "https://cdn.dummyjson.com/product-images/20/thumbnail.jpg",
+		"status": "active",
+		"position": 20,
+		"deleted": false
+	}
+]

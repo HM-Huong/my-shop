@@ -1,0 +1,9 @@
+mixin nav-item({label, icon, path})
+	li.nav-item
+		a.nav-link.px-0(
+			href=path 
+			class={'text-warning': path === currentPath}
+			style={color: 'inherit'}
+		)
+			i.bi.fs-4(class=icon)
+			span.ms-1.d-none.d-sm-inline #{label}

@@ -1,0 +1,23 @@
+header
+	//- nav bar
+	nav.navbar.navbar-expand-lg.bg-light.fixed-top 
+		.container-lg.align-items-end
+			a.navbar-brand(href='/')
+				i.bi.bi-bag-check-fill(style='font-size: 1.5rem;')
+
+			
+			button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#mainNavBar' aria-controls='mainNavBar' aria-expanded='false' aria-label='Toggle navigation')
+				span.navbar-toggler-icon
+
+			#mainNavBar.collapse.navbar-collapse.justify-content-end
+				ul.navbar-nav.mb-2.mb-lg-0.text-capitalize
+					li.nav-item
+						a.nav-link.text-end(
+							href='/' 
+							class={active: currentPath==''}
+						) Trang chủ
+					li.nav-item
+						a.nav-link.text-end(
+							href='/products' 
+							class={active: currentPath=='/products'}
+						) Sản phẩm
