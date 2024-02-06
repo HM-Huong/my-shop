@@ -8,7 +8,11 @@ const ProductSchema = new mongoose.Schema(
 		discountPercentage: Number,
 		stock: Number,
 		thumbnail: String,
-		status: String,
+		status: {
+			type: String,
+			enum: ['active', 'inactive'],
+			default: 'active',
+		},
 		position: Number,
 		deleted: {
 			type: Boolean,
@@ -19,6 +23,10 @@ const ProductSchema = new mongoose.Schema(
 );
 
 ProductSchema.timestamps = true;
+ProductSchema.virtual('discountPrice').get(function () {
+	return (this.price - (this.price * this.discountPercentage) / 100).toFixed(0);
+});
+
 
 const Product = mongoose.model('Product', ProductSchema, 'products');
 

@@ -22,6 +22,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((req, res, next) => {
+	res.locals.currentPath = req.path;
+	next();
+});
 app.use('/', clientRouter);
 app.use(process.env.ADMIN_PATH || '/admin', adminRouter);
 
@@ -41,6 +45,5 @@ app.use(function (err, req, res, next) {
 });
 
 app.listen(process.env.PORT, () => {
-	console.clear();
 	console.log(`App listening at http://localhost:${process.env.PORT}`);
 });

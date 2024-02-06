@@ -1,0 +1,12 @@
+mixin card(product)
+	.col-sm-6.col-md-3.d-flex
+		.card.shadow
+			img.card-img-top(src=product.thumbnail alt=product.title style="height: 200px; object-fit: cover;")
+			.card-body.d-flex.flex-column
+				h5.card-title #{product.title}
+				p.card-text.flex-grow-1.truncate-2 #{product.description}
+				div.d-flex.justify-content-between.align-items-center
+					div.d-flex.align-items-center.justify-content-end.gap-2
+						.btn.btn-danger.btn-sm.fw-bold -#{product.discountPercentage}%
+						.text-danger.text-decoration-line-through.float-start #{product.price}
+					.text-success.fw-bold.float-end #{product.discountPrice} 
