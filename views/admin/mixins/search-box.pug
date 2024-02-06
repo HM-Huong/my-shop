@@ -1,0 +1,7 @@
+mixin search-box(keyword)
+	form#search-form(autocomplete='off' data-maintain-query)
+		.input-group
+			input.form-control(type='text' name='keyword' placeholder='Tên sản phẩm' value=keyword)
+			button.btn.btn-success(type='submit')
+				i.bi.bi-search.d-inline-block.pe-1
+				| Tìm

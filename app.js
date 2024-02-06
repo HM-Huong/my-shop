@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const createError = require('http-errors');
+const cookieParser = require('cookie-parser');
 
 const db = require('./database/mongodb');
 const clientRouter = require('./routes/client');
@@ -21,6 +22,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
 
 app.use((req, res, next) => {
 	res.locals.currentPath = req.path;

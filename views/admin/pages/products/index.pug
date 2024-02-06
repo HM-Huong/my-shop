@@ -1,0 +1,151 @@
+extends ../../layouts/default
+
+include ../../mixins/filter-button
+include ../../mixins/search-box
+include ../../mixins/pagination
+
+block scripts
+	script(src="/admin/js/products.js")
+
+append content
+	- if (alerts)
+		.position-fixed(
+			style={
+				'top': '1rem',
+				'right': '1rem',
+				'z-index': '9999'
+		})
+			each alert in alerts
+				.alert.alert-dismissible.fade.show(
+					role='alert'
+					class = {
+						'alert-danger': alert.type === 'error',
+						'alert-warning': alert.type === 'warning',
+						'alert-success': alert.type === 'success',
+					}
+					
+				)
+					| #{alert.msg}
+					button.btn-close.d-inline-block(
+						type='button' 
+						data-bs-dismiss='alert' 
+						aria-label='Close'
+					)
+
+	.card.mb-2 
+		.card-header Bộ lọc và tìm kiếm 
+		.card-body
+			.row
+				.col-lg-6
+					+filter-button({
+						filterButtons: filter.status, 
+						name: 'status'
+					})
+				.col-lg-6
+					+search-box(filter.keyword)
+	.card
+		form.card-body#product-list
+			.card-title
+				h2.text-center Danh sách sản phẩm
+			.row
+				.col-8.pt-2.pb-5.d-flex.gap-2
+					select.w-auto.form-select.d-inline-block(name="bulkAction")
+						option(selected) --- Hành động ---
+						option(value="active") Hoạt động
+						option(value="inactive") Không hoạt động
+						option(value='position') Cập nhật vị trí
+						option(value="delete") Xóa tất cả
+					button.btn.btn-primary(
+						type="submit"
+						form='update-form'
+						value='Áp dụng'
+						name='bulkUpdate'
+						formmethod='POST'
+						formaction=ADMIN_PATH + '/products/bulk-update'
+						disabled
+					) Áp dụng
+
+				.col-4
+					.btn.btn-outline-success.float-end
+						a.d-flex.align-items-center.gap-2(
+							href='/admin/products/create'
+							style= {
+								'text-decoration': 'none',
+								color: 'inherit'
+							}
+						)
+							.bi.bi-plus-square-fill
+							| Thêm mới
+
+			table.table.table-hover.table-sm
+				thead
+					tr
+						th
+							input.form-check-input(type='checkbox' name='checkAll')
+						th STT
+						th Hình ảnh
+						th Tiêu đề
+						th Giá
+						th Vị trí
+						th Trạng thái
+						th Hành động
+				tbody
+					each product, index in products
+						tr
+							td 
+								input.form-check-input(type='checkbox' name='_id' value=product.id)
+							td #{index+1}
+							td
+								img(src=product.thumbnail style='height: 100px; width: 200px; object-fit: cover;')
+							td #{product.title}
+							td $#{product.price}
+							td
+								input.form-control(
+									name='position'
+									type='number' 
+									min='1'
+									value=product.position
+									style='width: 80px;'
+								)
+							td
+								if product.status === 'active'
+									button.btn.badge.rounded-pill.text-bg-success(
+										type='submit'
+										form='update-form'
+										name='inactive'
+										formmethod='POST'
+										formaction=`${ADMIN_PATH}/products/${product.id}`
+									)= product.status
+								else
+									button.btn.badge.rounded-pill.text-bg-danger(
+										type='submit'
+										form='update-form'
+										name='active'
+										formmethod='POST'
+										formaction=`${ADMIN_PATH}/products/${product.id}`
+									)= product.status
+								each status in filter.status
+									.btn.rounded-pill.d-block(
+										style={
+											height: 0,
+											padding: 0,
+											margin: 0,
+											opacity: 0,
+										}
+									) #{status.label}
+								
+							td
+								.d-flex.gap-2
+									button.btn.btn-sm.btn-warning(
+										data-edit-product=product.id
+									) Sửa
+									button.btn.btn-sm.btn-danger(
+										type='submit'
+										form='update-form'
+										name='delete'
+										formmethod='POST'
+										formaction=`${ADMIN_PATH}/products/${product.id}`
+									) Xóa
+
+	+pagination(pagination)
+	form#update-form
