@@ -61,3 +61,6 @@ typings/
 .next
 
 tmp
+
+# public/uploads (for uploaded files from the user)
+public/uploads

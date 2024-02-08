@@ -133,6 +133,7 @@ module.exports.create = [
 	validation.create,
 	asyncHandler(async (req, res) => {
 		const product = new Product(matchedData(req));
+		product.thumbnail = '/uploads/' + req.file.filename;
 		await product.save();
 		res.cookie('alerts', [
 			{

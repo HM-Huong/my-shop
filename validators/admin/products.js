@@ -80,7 +80,6 @@ exports.create = [
 		.isInt({ min: 0 })
 		.withMessage('Số lượng phải nguyên và lớn hơn hoặc bằng 0')
 		.toInt(),
-	body('thumbnail').optional().trim().isURL().withMessage('URL không hợp lệ'),
 	body('status').optional().isIn(status).withMessage('Trạng thái không hợp lệ'),
 	body('position')
 		.optional()

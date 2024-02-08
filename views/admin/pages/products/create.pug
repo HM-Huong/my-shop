@@ -7,7 +7,7 @@ block scripts
 
 append content
 	+alerts(alerts)
-	form(method="post" autocomplete="off")
+	form(method="post" autocomplete="off" enctype="multipart/form-data")
 			label.d-block.form-label.mb-3 Tiêu đề
 				input.form-control(
 					required
@@ -56,9 +56,8 @@ append content
 			label.d-block.form-label.mb-3 Hình ảnh
 				input.form-control(
 					name="thumbnail"
-					type="text"
-					placeholder="Nhập URL hình ảnh"
-					value= thumbnail || ''
+					type="file"
+					accept="image/*"
 				)
 				img#preview.img-fluid.rounded.mx-auto.d-block.my-2
 

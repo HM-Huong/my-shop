@@ -1,5 +1,4 @@
 mixin nav-item({label, icon, path, submenu})
-	- const id = 'menu-' + (Math.random()*Date.now()).toFixed(0)
 	li.nav-item
 		a.nav-link.ps-0.pe-2.d-inline-block(
 			href=path 
@@ -9,6 +8,7 @@ mixin nav-item({label, icon, path, submenu})
 			i.bi.fs-4(class=icon)
 			span.ms-1.d-none.d-sm-inline #{label}
 		if submenu
+			- const id = 'menu-' + Date.now() + '-' + Math.round(Math.random() * 1e9)
 			a.bi.bi-chevron-down.fs-4.text-white(
 				data-bs-toggle='collapse' 
 				href='#'+id
