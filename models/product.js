@@ -4,15 +4,28 @@ const ProductSchema = new mongoose.Schema({
 	title: String,
 	description: String,
 	price: Number,
-	discountPercentage: Number,
-	stock: Number,
+	discountPercentage: {
+		type: Number,
+		default: 0,
+		min: 0,
+		max: 100,
+	},
+	stock: {
+		type: Number,
+		default: 0,
+		min: 0,
+	},
 	thumbnail: String,
 	status: {
 		type: String,
 		enum: ['active', 'inactive'],
 		default: 'active',
 	},
-	position: Number,
+	position: {
+		type: Number,
+		default: 1,
+		min: 1,
+	},
 	deleted: {
 		type: Boolean,
 		default: false,

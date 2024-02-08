@@ -3,34 +3,13 @@ extends ../../layouts/default
 include ../../mixins/filter-button
 include ../../mixins/search-box
 include ../../mixins/pagination
+include ../../mixins/alerts
 
 block scripts
 	script(src="/admin/js/products.js")
 
 append content
-	- if (alerts)
-		.position-fixed(
-			style={
-				'top': '1rem',
-				'right': '1rem',
-				'z-index': '9999'
-		})
-			each alert in alerts
-				.alert.alert-dismissible.fade.show(
-					role='alert'
-					class = {
-						'alert-danger': alert.type === 'error',
-						'alert-warning': alert.type === 'warning',
-						'alert-success': alert.type === 'success',
-					}
-					
-				)
-					| #{alert.msg}
-					button.btn-close.d-inline-block(
-						type='button' 
-						data-bs-dismiss='alert' 
-						aria-label='Close'
-					)
+	+alerts(alerts)
 
 	.card.mb-2 
 		.card-header Bộ lọc và tìm kiếm 

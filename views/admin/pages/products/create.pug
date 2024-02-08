@@ -1,0 +1,94 @@
+extends ../../layouts/default
+
+include ../../mixins/alerts
+
+block scripts
+	script(src="/admin/js/products.create.js")
+
+append content
+	+alerts(alerts)
+	form(method="post" autocomplete="off")
+			label.d-block.form-label.mb-3 Tiêu đề
+				input.form-control(
+					required
+					type="text" 
+					name="title"
+					value=title || ''
+				)
+
+			label.d-block.form-label.mb-3 Mô tả
+				textarea.form-control(
+					required
+					name="description"
+					rows="5"
+				) !{description || ''}
+
+			.row
+				.mb-3.col-sm-4
+					label Giá:
+					input.form-control(
+						type="number"
+						value= price || '0'
+						name="price"
+						min="0"
+						step="0.01"
+					)
+				.mb-3.col-sm-4
+					label Giảm giá (%):
+					input.form-control(
+						type="number"
+						value= discountPercentage || '0'
+						name="discountPercentage"
+						min="0"
+						max="100"
+						step="1"
+					)
+				.mb-3.col-sm-4
+					label Số lượng :
+					input.form-control(
+						type="number"
+						value= stock || '0'
+						name="stock"
+						min="0"
+						step="1"
+					)
+
+			label.d-block.form-label.mb-3 Hình ảnh
+				input.form-control(
+					name="thumbnail"
+					type="text"
+					placeholder="Nhập URL hình ảnh"
+					value= thumbnail || ''
+				)
+				img#preview.img-fluid.rounded.mx-auto.d-block.my-2
+
+			label.d-block.form-label.mb-3 Vị trí
+				input.form-control(
+					type="number" 
+					name="position"
+					min="1"
+					step="1"
+					placeholder="1"
+					value= position > 1 ? position : ''
+				)
+			
+			.d-flex.gap-3.mb-3 Trạng thái:
+				label.form-label.d-flex.gap-2
+					input.form-check-input(
+						type="radio" 
+						name="status" 
+						value="active"
+						checked= status === 'active' || !status
+					)
+					| Hoạt động
+				label.form-label.d-flex.gap-2
+					input.form-check-input(
+						type="radio" 
+						name="status" 
+						value="inactive"
+						checked= status === 'inactive'
+					)
+					| Không hoạt động
+
+			input.btn.btn-primary(type="submit" value="Lưu")
+

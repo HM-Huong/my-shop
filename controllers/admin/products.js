@@ -94,7 +94,6 @@ module.exports.bulkUpdate = [
 			products.map(async (product) => {
 				const { _id, ...update } = product;
 				product = await Product.findById(_id).select('title');
-				console.log(product.title)
 				if (update.delete) {
 					alerts.push({
 						type: 'warning',
@@ -112,6 +111,38 @@ module.exports.bulkUpdate = [
 		);
 
 		res.cookie('alerts', alerts);
+		res.redirect('back');
+	}),
+];
+
+// [GET] create a product
+module.exports.create_page = (req, res) => {
+	const alerts = req.cookies.alerts;
+	const formValues = req.cookies.formValues;
+	res.clearCookie('alerts');
+	res.clearCookie('formValues');
+	res.render('admin/pages/products/create', {
+		pageTitle: 'Quản trị - Sản phẩm - Tạo mới',
+		alerts,
+		...formValues,
+	});
+};
+
+// [POST] create a product
+module.exports.create = [
+	validation.create,
+	asyncHandler(async (req, res) => {
+		const product = new Product(matchedData(req));
+		await product.save();
+		res.cookie('alerts', [
+			{
+				type: 'success',
+				msg: 'Tạo sản phẩm thành công',
+			},
+		]);
+
+		res.clearCookie('alerts');
+		res.clearCookie('formValues');
 		res.redirect('back');
 	}),
 ];
