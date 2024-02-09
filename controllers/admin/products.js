@@ -9,7 +9,7 @@ const validation = require('../../validators/admin/products');
 module.exports.index = [
 	validation.searchQuery,
 	asyncHandler(async (req, res) => {
-		const { keyword, page, status } = matchedData(req);
+		const { keyword, page, status, sortBy, order } = matchedData(req);
 
 		const title = new RegExp(keyword?.replace(/ /g, '|'), 'i');
 		const filter = {
@@ -18,6 +18,12 @@ module.exports.index = [
 			...(status && { status }),
 		};
 
+		const sort = {
+			[sortBy || 'position']: order === 'asc' ? 1 : -1,
+		};
+		console.log(sortBy)
+
+		console.log(sort)
 		const pagination = new Pagination({
 			currentPage: page,
 			itemPerPage: 5,
@@ -28,7 +34,7 @@ module.exports.index = [
 		const products = await Product.find(filter)
 			.skip(pagination.skip)
 			.limit(pagination.itemPerPage)
-			.sort({ position: -1 });
+			.sort(sort);
 
 		let filterStatus = ['', ...Product.schema.path('status').enumValues];
 

@@ -1,20 +1,29 @@
 const url = new URL(window.location.href);
 
 //------------- filter products
-const maintainQuery = document.querySelectorAll('form[data-maintain-query]');
-maintainQuery?.forEach((form) => {
-	form.addEventListener('submit', function (event) {
-		event.preventDefault();
-
-		const formData = new FormData(form);
-		for (const [key, value] of formData.entries()) {
-			url.searchParams.set(key, value);
-		}
-
+const filterBtn = document.querySelectorAll('button.filterBtn');
+filterBtn?.forEach((btn) => {
+	btn.addEventListener('click', function (event) {
+		url.searchParams.set('status', btn.value);
 		window.location.href = url.toString();
 	});
 });
 
+// ------------- sort products
+const sortSelect = document.querySelector('select[name="sortBy"]');
+if (sortSelect) {
+	const sortBy = url.searchParams.get('sortBy');
+	const order = url.searchParams.get('order');
+	if (sortBy && order) {
+		sortSelect.value = `${sortBy}-${order}`;
+	}	
+	sortSelect.addEventListener('change', function (event) {
+		const [sortBy, order] = sortSelect.value.split('-');
+		url.searchParams.set('sortBy', sortBy);
+		url.searchParams.set('order', order);
+		window.location.href = url.toString();
+	});
+}
 //------------- pagination
 const pageLinks = document.querySelectorAll('a[data-page]');
 pageLinks?.forEach((link) => {

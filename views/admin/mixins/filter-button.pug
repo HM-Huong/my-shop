@@ -1,13 +1,8 @@
 mixin filter-button({filterButtons, name})
 	each btn in filterButtons
-		form(data-maintain-query).d-inline-block
-			input(
-				type='hidden'
-				name=name
-				value=btn.filter
-			)
-			button.btn.btn-sm.btn-outline-success.me-1(
-				type='submit'
-				class={active: btn.isActive}
-				style={'text-transform': 'lowercase'}
-			) #{btn.label}
+		button.btn.btn-sm.btn-outline-success.me-1(
+			class='filterBtn'
+			value=btn.filter
+			class={active: btn.isActive}
+			style={'text-transform': 'lowercase'}
+		) #{btn.label}

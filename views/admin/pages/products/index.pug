@@ -15,13 +15,27 @@ append content
 		.card-header Bộ lọc và tìm kiếm 
 		.card-body
 			.row
-				.col-lg-6
+				.col-lg-8
 					+filter-button({
 						filterButtons: filter.status, 
 						name: 'status'
 					})
-				.col-lg-6
+					label.ps-4 Sắp xếp theo: 
+						select.d-inline-block.form-select(
+							name='sortBy'
+							style = {
+								width: 'fit-content',
+							}
+						)
+							option(value='position-desc') Vị trí giảm dần
+							option(value='position-asc') Vị trí tăng dần
+							option(value='title-asc') Tiêu đề A-Z
+							option(value='title-desc') Tiêu đề Z-A
+							option(value='price-asc') Giá tăng dần
+							option(value='price-desc') Giá giảm dần
+				.col-lg-4
 					+search-box(filter.keyword)
+
 	.card
 		form.card-body#product-list
 			.card-title

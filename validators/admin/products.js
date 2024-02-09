@@ -20,13 +20,16 @@ exports.searchQuery = [
 	query('keyword').optional().trim().escape(),
 	query('page').optional().isInt({ min: 1 }).toInt(),
 	query('status').optional().isIn(status),
+	query('sortBy')
+		.optional()
+		.isIn(['position', 'title', 'price', 'discountPercentage', 'stock']),
+	query('order').optional().isIn(['asc', 'desc']),
 
 	(req, res, next) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			req.body.keyword = '';
+			console.log(errors.array());
 			req.body.page = 1;
-			req.body.status = '';
 		}
 		next();
 	},
@@ -115,10 +118,7 @@ exports.create = [
 		.isInt({ min: 0 })
 		.withMessage('Số lượng phải nguyên và lớn hơn hoặc bằng 0')
 		.toInt(),
-	body('thumbnail')
-		.optional()
-		.isURL()
-		.withMessage('URL ảnh không hợp lệ'),
+	body('thumbnail').optional().isURL().withMessage('URL ảnh không hợp lệ'),
 	body('status').optional().isIn(status).withMessage('Trạng thái không hợp lệ'),
 	checkPosition(body('position')),
 
