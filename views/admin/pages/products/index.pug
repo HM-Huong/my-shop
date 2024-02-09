@@ -37,7 +37,6 @@ append content
 					button.btn.btn-primary(
 						type="submit"
 						form='update-form'
-						value='Áp dụng'
 						name='bulkUpdate'
 						formmethod='POST'
 						formaction=ADMIN_PATH + '/products/bulk-update'
@@ -115,8 +114,8 @@ append content
 								
 							td
 								.d-flex.gap-2
-									button.btn.btn-sm.btn-warning(
-										data-edit-product=product.id
+									a.btn.btn-sm.btn-warning(
+										href=`${ADMIN_PATH}/products/${product.id}`
 									) Sửa
 									button.btn.btn-sm.btn-danger(
 										type='submit'

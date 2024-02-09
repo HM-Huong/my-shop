@@ -16,6 +16,8 @@ router.get('/create', controller.create_page);
 // upload.single('thumbnail') là middleware, nó sẽ xử lý file được upload trước khi đến controller.create
 router.post('/create', upload.single('thumbnail'), controller.create);
 // update a product
-router.post('/:_id', controller.update);
+router.post('/:_id', upload.single('thumbnail'), controller.update);
+// edit a product
+router.get('/:_id', controller.edit_page);
 
 module.exports = router;

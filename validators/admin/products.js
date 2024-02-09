@@ -4,6 +4,18 @@ const Product = require('../../models/product');
 
 const status = Product.schema.path('status').enumValues;
 
+function checkPosition(check) {
+	return check
+		.optional()
+		.customSanitizer((value) => {
+			if (!value) {
+				return 1;
+			}
+			return value;
+		})
+		.isInt({ min: 1 });
+}
+
 exports.searchQuery = [
 	query('keyword').optional().trim().escape(),
 	query('page').optional().isInt({ min: 1 }).toInt(),
@@ -22,9 +34,16 @@ exports.searchQuery = [
 
 exports.update = [
 	param('_id').isMongoId(),
-	body('product.status').optional().isIn(status),
-	body('product.deleted').optional().isBoolean(),
-	body('product.position').optional().isInt({ min: 1 }),
+	body('title').optional().trim().escape(),
+	body('description').optional().trim().escape(),
+	body('price').optional().isFloat({ min: 0 }).toFloat(),
+	body('discountPercentage').optional().isFloat({ min: 0, max: 100 }).toFloat(),
+	body('stock').optional().isInt({ min: 0 }).toInt(),
+	body('thumbnail').optional().trim().isURL(),
+	body('status').optional().isIn(status),
+	checkPosition(body('position')),
+	body('deleted').optional().isBoolean(),
+
 	(req, res, next) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
@@ -38,11 +57,27 @@ exports.update = [
 ];
 
 exports.bulkUpdate = [
-	body('products', 'products').isArray({ min: 1 }),
-	body('products.*._id', 'id').isMongoId(),
-	body('products.*.status', 'status').optional().isIn(status),
-	body('products.*.position', 'position').optional().isInt({ min: 1 }),
-	body('products.*.delete', 'delete').optional().isBoolean(),
+	(req, res, next) => {
+		for (const key in req.body) {
+			if (!Array.isArray(req.body[key])) {
+				req.body[key] = [req.body[key]];
+			}
+		}
+		next();
+	},
+	body('_id.*').isMongoId(),
+	body('title.*').optional().trim().escape(),
+	body('description.*').optional().trim().escape(),
+	body('price.*').optional().isFloat({ min: 0 }).toFloat(),
+	body('discountPercentage.*')
+		.optional()
+		.isFloat({ min: 0, max: 100 })
+		.toFloat(),
+	body('stock.*').optional().isInt({ min: 0 }).toInt(),
+	body('thumbnail.*').optional().trim().isURL(),
+	body('status.*').optional().isIn(status),
+	checkPosition(body('position.*')),
+	body('deleted.*').optional().isBoolean(),
 
 	(req, res, next) => {
 		const errors = validationResult(req);
@@ -80,17 +115,13 @@ exports.create = [
 		.isInt({ min: 0 })
 		.withMessage('Số lượng phải nguyên và lớn hơn hoặc bằng 0')
 		.toInt(),
-	body('status').optional().isIn(status).withMessage('Trạng thái không hợp lệ'),
-	body('position')
+	body('thumbnail')
 		.optional()
-		.customSanitizer((value) => {
-			if (!value) {
-				return 1;
-			}
-			return value;
-		})
-		.isInt({ min: 1 })
-		.withMessage('Vị trí phải lớn hơn 0'),
+		.trim()
+		.isURL()
+		.withMessage('URL ảnh không hợp lệ'),
+	body('status').optional().isIn(status).withMessage('Trạng thái không hợp lệ'),
+	checkPosition(body('position')),
 
 	(req, res, next) => {
 		const errors = validationResult(req);

@@ -34,7 +34,7 @@ productListForm?.addEventListener('change', function (event) {
 	const checkAll = productListForm.querySelector('input[name="checkAll"]');
 	const checkboxes = productListForm.querySelectorAll('input[name="_id"]');
 	const bulkUpdateBtn = productListForm.querySelector(
-		'button[name=bulkUpdate]'
+		'button[name="bulkUpdate"]'
 	);
 	const action = formData.get('bulkAction');
 
@@ -64,7 +64,7 @@ document
 		const submitter = event.submitter;
 		const dataForm = submitter.closest('form');
 		submitter.form = event.target;
-		let ok;
+		let ok = true;
 		switch (submitter.name) {
 			case 'bulkUpdate':
 				ok = bulkUpdate(dataForm, submitter);
@@ -77,27 +77,21 @@ document
 				ok = deleteProduct(submitter);
 				break;
 			default:
-				ok = false;
 				break;
 		}
-		console.log(submitter.name, ok);
 		if (!ok) {
 			event.preventDefault();
 		}
 	});
 
 function updateStatus(submitter) {
-	addInput(
-		submitter.form,
-		'product',
-		JSON.stringify({ status: submitter.name })
-	);
+	addInput(submitter.form, [{ status: submitter.name }]);
 	return true;
 }
 
 function deleteProduct(submitter) {
 	if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
-		addInput(submitter.form, 'product', JSON.stringify({ deleted: true }));
+		addInput(submitter.form, [{ deleted: true }]);
 		return true;
 	}
 	return false;
@@ -112,13 +106,12 @@ function bulkUpdate(dataForm, submitter) {
 
 	switch (action) {
 		case 'delete':
-			if (confirm('Bạn có chắc chắn muốn xóa những sản phẩm này?')) {
-				products.forEach((product) => {
-					product.deleted = true;
-				});
-			} else {
+			if (!confirm('Bạn có chắc chắn muốn xóa những sản phẩm này?')) {
 				return false;
 			}
+			products.forEach((product) => {
+				product.deleted = true;
+			});
 			break;
 		case 'active':
 		case 'inactive':
@@ -138,17 +131,20 @@ function bulkUpdate(dataForm, submitter) {
 			break;
 	}
 
-	addInput(submitter.form, 'products', JSON.stringify(products));
+	addInput(submitter.form, products);
 	return true;
 }
 
-function addInput(form, name, value) {
-	const input = document.createElement('input');
-	input.name = name;
-	input.type = 'hidden';
-	input.value = value;
-	form.innerHTML = '';
-	form.appendChild(input);
+function addInput(form, products) {
+	products.forEach((product) => {
+		for (const [name, value] of Object.entries(product)) {
+			const input = document.createElement('input');
+			input.type = 'hidden';
+			input.name = name;
+			input.value = value;
+			form.appendChild(input);
+		}
+	});
 }
 
 //----------------- Fade out alert

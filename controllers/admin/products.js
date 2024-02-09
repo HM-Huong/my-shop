@@ -53,15 +53,11 @@ module.exports.index = [
 ];
 
 // [POST] update a product
-// body.product: stringified JSON object of product
 module.exports.update = [
-	(req, res, next) => {
-		req.body.product = JSON.parse(req.body.product);
-		next();
-	},
 	validation.update,
 	asyncHandler(async (req, res) => {
-		const { _id, product } = matchedData(req);
+		const { _id, ...product } = matchedData(req);
+
 		let msg = 'Cập nhật thành công';
 		if (product.deleted) {
 			msg = 'Xóa thành công';
@@ -79,36 +75,52 @@ module.exports.update = [
 ];
 
 // [POST] update multiple products
-// body.products: stringified JSON array of products properties to update
 module.exports.bulkUpdate = [
-	(req, res, next) => {
-		req.body.products = JSON.parse(req.body.products);
-		next();
-	},
 	validation.bulkUpdate,
 	asyncHandler(async (req, res) => {
-		const { products } = matchedData(req);
-		let alerts = [];
+		const {
+			_id,
+			title,
+			description,
+			price,
+			discountPercentage,
+			stock,
+			thumbnail,
+			status,
+			position,
+			deleted,
+		} = matchedData(req);
 
 		await Promise.all(
-			products.map(async (product) => {
-				const { _id, ...update } = product;
-				product = await Product.findById(_id).select('title');
-				if (update.delete) {
-					alerts.push({
-						type: 'warning',
-						msg: `Xóa sản phẩm '${product.title}' thành công`,
-					});
-					update.deleteAt = new Date();
-				} else {
-					alerts.push({
-						type: 'success',
-						msg: `Cập nhật sản phẩm '${product.title}' thành công`,
-					});
-				}
-				return Product.findByIdAndUpdate(_id, update);
+			_id.map(async (_id, index) => {
+				return Product.findByIdAndUpdate(_id, {
+					...(title && { title: title[index] }),
+					...(description && { description: description[index] }),
+					...(price && { price: price[index] }),
+					...(discountPercentage && {
+						discountPercentage: discountPercentage[index],
+					}),
+					...(stock && { stock: stock[index] }),
+					...(thumbnail && { thumbnail: thumbnail[index] }),
+					...(status && { status: status[index] }),
+					...(position && { position: position[index] }),
+					...(deleted && { deleted: deleted[index], deleteAt: new Date() }),
+				});
 			})
 		);
+
+		let alerts = [];
+		if (deleted) {
+			alerts.push({
+				type: 'warning',
+				msg: `Đã xóa ${_id.length} sản phẩm`,
+			});
+		} else {
+			alerts.push({
+				type: 'success',
+				msg: `Đã cập nhật ${_id.length} sản phẩm`,
+			});
+		}
 
 		res.cookie('alerts', alerts);
 		res.redirect('back');
@@ -121,7 +133,7 @@ module.exports.create_page = (req, res) => {
 	const formValues = req.cookies.formValues;
 	res.clearCookie('alerts');
 	res.clearCookie('formValues');
-	res.render('admin/pages/products/create', {
+	res.render('admin/pages/products/create_edit', {
 		pageTitle: 'Quản trị - Sản phẩm - Tạo mới',
 		alerts,
 		...formValues,
@@ -133,7 +145,9 @@ module.exports.create = [
 	validation.create,
 	asyncHandler(async (req, res) => {
 		const product = new Product(matchedData(req));
-		product.thumbnail = '/uploads/' + req.file.filename;
+		if (req.file) {
+			product.thumbnail = '/uploads/' + req.file.filename;
+		}
 		await product.save();
 		res.cookie('alerts', [
 			{
@@ -147,3 +161,27 @@ module.exports.create = [
 		res.redirect('back');
 	}),
 ];
+
+// [GET] product detail
+module.exports.edit_page = asyncHandler(async (req, res) => {
+	try {
+		const product = await Product.findOne({
+			_id: req.params._id,
+			deleted: false,
+		});
+		res.clearCookie('alerts');
+		res.render('admin/pages/products/create_edit', {
+			pageTitle: 'Quản trị - Sản phẩm - Chỉnh sửa',
+			...product.toObject(),
+			alerts: req.cookies.alerts,
+		});
+	} catch (error) {
+		res.cookie('alerts', [
+			{
+				type: 'error',
+				msg: 'Sản phẩm không tồn tại',
+			},
+		]);
+		res.redirect(process.env.ADMIN_PATH + '/products');
+	}
+});
