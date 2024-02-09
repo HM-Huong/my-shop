@@ -1,0 +1,24 @@
+mixin alerts(alerts)
+	- if (alerts)
+		.position-fixed(
+				style={
+					'top': '1rem',
+					'right': '1rem',
+					'z-index': '9999'
+			})
+			each alert in alerts
+				.alert.alert-dismissible.fade.show(
+					role='alert'
+					class = {
+						'alert-danger': alert.type === 'error',
+						'alert-warning': alert.type === 'warning',
+						'alert-success': alert.type === 'success',
+					}
+					
+				)
+					| #{alert.msg}
+					button.btn-close.d-inline-block(
+						type='button' 
+						data-bs-dismiss='alert' 
+						aria-label='Close'
+					)

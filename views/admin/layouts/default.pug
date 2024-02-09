@@ -22,7 +22,19 @@ html(lang="en")
 				{
 					label: 'Danh sách sản phẩm', 
 					icon: 'bi-card-list', 
-					path: ADMIN_PATH + '/products'
+					path: ADMIN_PATH + '/products',
+					submenu: [
+						{
+							label: 'Thêm mới', 
+							path: ADMIN_PATH + '/products/create',
+							icon: 'bi-plus-square'
+						},
+						{
+							label: 'Thùng rác', 
+							path: ADMIN_PATH + '/products/trash',
+							icon: 'bi-trash'
+						}
+					]
 				},
 			]
 		})

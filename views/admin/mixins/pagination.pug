@@ -1,0 +1,31 @@
+mixin pagination(pagination)
+	nav.my-4(
+		aria-label="Search results pages"
+		class={
+			'd-none': pagination.totalPages <= 1
+		}
+	)
+		ul.pagination.justify-content-center
+			li.page-item(
+				class = {
+					disabled: pagination.currentPage === 1
+				}
+			)
+				a.page-link(data-page=pagination.currentPage - 1) Trang trước
+
+			each page in pagination.showPages
+				li.page-item(
+					class = {
+						disable: page === '...',
+						active: page === pagination.currentPage
+					}
+				)
+					a.page-link(data-page=page) #{page}
+
+			li.page-item(
+				class = {
+					disabled: pagination.currentPage === pagination.totalPages
+				}
+			)
+				a.page-link(data-page=pagination.currentPage+1) Trang sau
+
