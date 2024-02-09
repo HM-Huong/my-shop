@@ -117,7 +117,6 @@ exports.create = [
 		.toInt(),
 	body('thumbnail')
 		.optional()
-		.trim()
 		.isURL()
 		.withMessage('URL ảnh không hợp lệ'),
 	body('status').optional().isIn(status).withMessage('Trạng thái không hợp lệ'),
