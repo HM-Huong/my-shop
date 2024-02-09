@@ -15,3 +15,24 @@ module.exports.index = asyncHandler(async (req, res) => {
 		products,
 	});
 });
+
+// [GET] display product detail
+module.exports.detail = asyncHandler(async (req, res) => {
+	const { slug } = req.params;
+	const product = await Product.findOne({
+		slug,
+		deleted: false,
+		status: 'active',
+	});
+
+	if (!product) {
+		const error = new Error('Not found');
+		error.status = 404;
+		throw error;
+	}
+
+	res.render('client/pages/products/detail', {
+		pageTitle: product.title,
+		product,
+	});
+});

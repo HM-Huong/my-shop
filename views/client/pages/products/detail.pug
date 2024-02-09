@@ -1,0 +1,7 @@
+extends ../../layouts/default
+
+append main
+	p Giá: #[strike #{product.price}] #{product.discountPrice} - Giảm #{product.discountPercentage}%
+	p Số lượng: #{product.stock}
+	img(src=product.thumbnail alt=product.title style="height: 200px; object-fit: cover;")
+	p Mô tả: #{product.description}

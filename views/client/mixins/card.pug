@@ -3,7 +3,11 @@ mixin card(product)
 		.card.shadow
 			img.card-img-top(src=product.thumbnail alt=product.title style="height: 200px; object-fit: cover;")
 			.card-body.d-flex.flex-column
-				h5.card-title #{product.title}
+				a(
+					href=`/products/${product.slug}`
+					style="text-decoration: none; color: inherit;"
+				)
+					h5.card-title #{product.title}
 				p.card-text.flex-grow-1.truncate-2 #{product.description}
 				div.d-flex.justify-content-between.align-items-center
 					div.d-flex.align-items-center.justify-content-end.gap-2

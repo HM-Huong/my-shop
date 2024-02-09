@@ -19,10 +19,15 @@ async function main() {
 
 		const sampleProducts = await readSampleProducts();
 
-		console.log(sampleProducts)
+		// console.log(sampleProducts)
 
 		console.log('Populating database with sample products...');
-		await Product.insertMany(sampleProducts);
+		await Promise.all(
+			sampleProducts.map(async (product) => {
+				const newProduct = new Product(product);
+				await newProduct.save();
+			})
+		);
 		console.log('Database populated with sample products');
 	} catch (error) {
 		console.log(error);

@@ -37,6 +37,7 @@ const ProductSchema = new mongoose.Schema({
 	slug: {
 		type: String,
 		slug: 'title', // create slug from title
+		slugPaddingSize: 4, // add a number has 4 digits to the end of slug if slug is duplicated
 		unique: true, // make slug unique
 	},
 });
